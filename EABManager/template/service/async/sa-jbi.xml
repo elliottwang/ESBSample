@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" version="1.0">
+  <service-assembly>
+    <identification>
+      <name>servicewrap-$UniqueServiceName$-sa</name>
+      <description>service wrap for $UniqueServiceName$</description>
+    </identification>
+    <service-unit>
+      <identification>
+        <name>servicewrap-$UniqueServiceName$-http-su</name>
+        <description>http</description>
+      </identification>
+      <target>
+        <artifacts-zip>servicewrap-$UniqueServiceName$-http-su.zip</artifacts-zip>
+        <component-name>servicemix-http</component-name>
+      </target>
+    </service-unit>
+    <service-unit>
+      <identification>
+        <name>servicewrap-$UniqueServiceName$-bean-su</name>
+        <description>bean</description>
+      </identification>
+      <target>
+        <artifacts-zip>servicewrap-$UniqueServiceName$-bean-su.zip</artifacts-zip>
+        <component-name>servicemix-bean</component-name>
+      </target>
+    </service-unit>
+    <service-unit>
+      <identification>
+        <name>servicewrap-$UniqueServiceName$-eip-su</name>
+        <description>eip</description>
+      </identification>
+      <target>
+        <artifacts-zip>servicewrap-$UniqueServiceName$-eip-su.zip</artifacts-zip>
+        <component-name>servicemix-eip</component-name>
+      </target>
+    </service-unit>
+  </service-assembly>
+</jbi>

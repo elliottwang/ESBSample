@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:sn="$ConsumerService_$ConsumerIndex$_ServiceNamespace$"
+             targetNamespace="$ConsumerService_$ConsumerIndex$_ServiceNamespace$">
+
+             <import namespace="$ConsumerService_$ConsumerIndex$_ServiceNamespace$" location="$ConsumerService_$ConsumerIndex$_AbsoluteWSDLFilePath$"/>
+
+             <service name="$ConsumerService_$ConsumerIndex$_ServiceName$_$UniqueFlowName$_Consumer_$ConsumerIndex$">
+                <port name="$ConsumerService_$ConsumerIndex$_ServiceEndpoint$" binding="sn:$ConsumerService_$ConsumerIndex$_ServiceBinding$">
+                   <soap:address location="Undefined"/>
+                </port>
+             </service>
+
+</definitions>

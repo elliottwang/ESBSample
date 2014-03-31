@@ -1,0 +1,278 @@
+<bpel:process name="ImportIntegrationService"
+			  suppressJoinFailure="yes"
+			  targetNamespace="http://JSTV/PublicService/ImportIntegrationService/"
+			  xmlns:tns="http://JSTV/PublicService/ImportIntegrationService/"
+			  xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+			  xmlns:wrap="http://JSTV/PublicService/ImportIntegrationServiceWrap/"
+			  xmlns:ns="http://JSTV/PublicService/Parameter/"
+			  xmlns:ImportIntegrationService="http://JSTV/PublicService/ImportIntegrationService/"
+			  xmlns:ImportIntegrationAsynCallbackService="http://JSTV/PublicService/ImportIntegrationAsynCallbackService/"
+			  xmlns:ImportAllowService="http://JSTV/PublicService/ImportAllowService/"
+			  xmlns:ImportAllowAsynCallbackService="http://JSTV/PublicService/ImportAllowAsynCallbackService/"
+			  xmlns:FileTransferService="http://JSTV/PublicService/FileTransferService/"
+			  xmlns:FileTransferAsyncCallBackService="http://JSTV/PublicService/FileTransferAsyncCallBackService/"
+			  xmlns:FileVerifyService="http://JSTV/PublicService/FileVerifyService/"
+			  xmlns:FileVerifyAsynCallbackService="http://JSTV/PublicService/FileVerifyAsynCallbackService/"
+			  xmlns:MetadataImportService="http://JSTV/PublicService/MetadataImportService/">
+         
+	<bpel:import location="ImportIntegrationService_ServiceWrap.wsdl" namespace="http://JSTV/PublicService/ImportIntegrationServiceWrap/" importType="http://schemas.xmlsoap.org/wsdl/" />
+	        
+    <bpel:partnerLinks>
+		<bpel:partnerLink name="client"
+                     partnerLinkType="wrap:ImportIntegrationLinkType"
+                     myRole="ImportIntegrationRole"
+                     partnerRole="ImportIntegrationCallBackRole"/>
+		<bpel:partnerLink name="importAllow"
+                     partnerLinkType="wrap:ImportAllowLinkType"
+                     myRole="ImportAllowCallBackRole"
+                     partnerRole="ImportAllowRole"/>
+        <bpel:partnerLink name="fileTransfer"
+                     partnerLinkType="wrap:FileTransferLinkType"
+                     myRole="FileTransferCallBackRole"
+                     partnerRole="FileTransferRole"/>
+		<bpel:partnerLink name="fileVerify"
+                     partnerLinkType="wrap:FileVerifyLinkType"
+                     myRole="FileVerifyCallBackRole"
+                     partnerRole="FileVerifyRole"/>  
+		<bpel:partnerLink name="metadataImport"
+                     partnerLinkType="wrap:MetadataImportLinkType"
+                     partnerRole="MetadataImportRole"/>    
+    </bpel:partnerLinks>
+    
+	<bpel:variables>
+        <bpel:variable name="clientRequest" messageType="ImportIntegrationService:ImportMaterialIntegrationRequestMessage"/>
+        <bpel:variable name="clientResponse" messageType="ImportIntegrationAsynCallbackService:ImportIntegerationCallbackInputMessage"/>
+        <bpel:variable name="importAllowRequest" messageType="ImportAllowService:ImportAllowRequestMessage"/>
+        <bpel:variable name="importAllowResponse" messageType="ImportAllowAsynCallbackService:ImportAllowCallbackInputMessage"/>
+        <bpel:variable name="fileTransferRequest" messageType="FileTransferService:FileTransferRequestMessage"/>
+        <bpel:variable name="fileTransferResponse" messageType="FileTransferAsyncCallBackService:FileTransferCallBackRequestMessage"/>        
+        <bpel:variable name="fileVerifyRequest" messageType="FileVerifyService:FileVerifyRequestMessage"/>
+        <bpel:variable name="fileVerifyResponse" messageType="FileVerifyAsynCallbackService:FileVerifyCallbackInputMessage"/>
+        <bpel:variable name="metadataImportRequest" messageType="MetadataImportService:MetadataImportRequestMessage"/>
+        <bpel:variable name="metadataImportResponse" messageType="MetadataImportService:MetadataImportResponseMessage"/>        
+    </bpel:variables>
+    
+	<bpel:correlationSets>
+        <bpel:correlationSet name="MessageIDCorrelation" properties="wrap:MessageIDProp"/>
+    </bpel:correlationSets>
+    
+    <bpel:sequence name="ImportFlow">
+        <bpel:receive name="receiveInput" partnerLink="client" operation="import" portType="ImportIntegrationService:ImportMaterialIntegrationType" variable="clientRequest" createInstance="yes">
+            <bpel:correlations>
+        		<bpel:correlation set="MessageIDCorrelation" initiate="yes"/>
+      		</bpel:correlations>
+        </bpel:receive>
+        
+        <bpel:assign validate="no" name="initParameters">
+        	<bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve">
+						<ImportAllowRequest xmlns="http://JSTV/PublicService/Parameter/">
+					    	<MessageID/>
+					    	<CommonRequest/>
+					      	<EntityInfo/>
+					    </ImportAllowRequest>
+					</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="importAllowRequest" part="ImportAllowRequest"/>
+            </bpel:copy>
+            <bpel:copy>
+            	<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:MessageID</bpel:from>
+            	<bpel:to>$importAllowRequest.ImportAllowRequest/ns:MessageID</bpel:to>
+            </bpel:copy>
+			<bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve">
+						<FileTransferRequest xmlns="http://JSTV/PublicService/Parameter/">
+      						<MessageID/>
+      						<EntityInfo/>
+      						<ContentFile/>
+    					</FileTransferRequest>
+					</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="fileTransferRequest" part="FileTransferRequest"/>
+            </bpel:copy>
+            <bpel:copy>
+            	<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:MessageID</bpel:from>
+            	<bpel:to>$fileTransferRequest.FileTransferRequest/ns:MessageID</bpel:to>
+            </bpel:copy>
+			<bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve">
+    					<FileVerifyRequest xmlns="http://JSTV/PublicService/Parameter/">
+	      					<MessageID/>
+	      					<ContentFile/>
+    					</FileVerifyRequest>
+					</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="fileVerifyRequest" part="FileVerifyRequest"/>
+            </bpel:copy>
+            <bpel:copy>
+            	<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:MessageID</bpel:from>
+            	<bpel:to>$fileVerifyRequest.FileVerifyRequest/ns:MessageID</bpel:to>
+            </bpel:copy>
+			<bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve">
+						<ImportRequest xmlns="http://JSTV/PublicService/Parameter/">
+      						<EntityInfo/>
+				      		<CommonRequest/>
+				    	</ImportRequest>
+					</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="metadataImportRequest" part="MetadataImportRequest"/>
+            </bpel:copy>
+			<bpel:copy>
+            	<bpel:from>
+                    <bpel:literal xml:space="preserve">
+						<MaterialImportIntegrationAsynRequest xmlns="http://JSTV/PublicService/Parameter/">
+					    	<MessageID/>
+							<ResponseInfo>
+								<Status/>
+								<Comment/>
+							</ResponseInfo>
+					    </MaterialImportIntegrationAsynRequest>
+					</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="clientResponse" part="ImportIntegrationCallbackInput"/>
+            </bpel:copy>
+            <bpel:copy>
+            	<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:MessageID</bpel:from>
+            	<bpel:to>$clientResponse.ImportIntegrationCallbackInput/ns:MessageID</bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        
+        <bpel:assign validate="no" name="getImportAllowRequest">   
+            <bpel:copy>
+            	<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:CommonRequest</bpel:from>
+            	<bpel:to>$importAllowRequest.ImportAllowRequest/ns:CommonRequest</bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+            	<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:EntityInfo</bpel:from>
+            	<bpel:to>$importAllowRequest.ImportAllowRequest/ns:EntityInfo</bpel:to>
+            </bpel:copy>
+        </bpel:assign>   
+             
+        <bpel:invoke name="importAllow" partnerLink="importAllow" operation="check" portType="ImportAllowService:ImportAllowType" inputVariable="importAllowRequest">
+        	<bpel:correlations>
+        		<bpel:correlation set="MessageIDCorrelation" initiate="no"/>
+      		</bpel:correlations>
+        </bpel:invoke>
+        
+        <bpel:receive name="receiveImportAllow" partnerLink="importAllow" operation="callback" variable="importAllowResponse" createInstance="no">
+        	<bpel:correlations>
+        		<bpel:correlation set="MessageIDCorrelation" initiate="no"/>
+      		</bpel:correlations>
+        </bpel:receive> 
+        
+        <bpel:if name="importAllowOK">
+			<bpel:condition>$importAllowResponse.ImportAllowCallbackInput/ns:ResponseInfo/ns:Status=0</bpel:condition>
+			<bpel:sequence>
+				<bpel:assign validate="no" name="getFileTransferRequest">
+					<bpel:copy>
+						<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:EntityInfo</bpel:from>
+						<bpel:to>$fileTransferRequest.FileTransferRequest/ns:EntityInfo</bpel:to>
+					</bpel:copy>
+					<bpel:copy>
+						<bpel:from>$importAllowResponse.ImportAllowCallbackInput/ns:EntityInfo/ns:ContentFile</bpel:from>
+						<bpel:to>$fileTransferRequest.FileTransferRequest/ns:ContentFile</bpel:to>
+					</bpel:copy>
+				</bpel:assign>
+				
+				<bpel:invoke name="fileTransfer" partnerLink="fileTransfer" operation="transfer" portType="FileTransferService:FileTransferType" inputVariable="fileTransferRequest">
+					<bpel:correlations>
+		        		<bpel:correlation set="MessageIDCorrelation" initiate="no"/>
+		      		</bpel:correlations>
+				</bpel:invoke>
+				
+				<bpel:receive name="receiverFileTransfer" partnerLink="fileTransfer" operation="callback" variable="fileTransferResponse" createInstance="no">
+					<bpel:correlations>
+		        		<bpel:correlation set="MessageIDCorrelation" initiate="no"/>
+		      		</bpel:correlations>
+				</bpel:receive>
+				
+				<bpel:if name="fileTransferOK">
+					<bpel:condition>$fileTransferResponse.FileTranseferCallBackRequet/ns:ResponseInfo/ns:Status=0</bpel:condition>
+					<bpel:sequence>
+						<bpel:assign validate="no" name="getFileVerifyRequest">
+							<bpel:copy>
+								<bpel:from>$importAllowResponse.ImportAllowCallbackInput/ns:EntityInfo/ns:ContentFile</bpel:from>
+								<bpel:to>$fileVerifyRequest.FileVerifyRequest/ns:ContentFile</bpel:to>
+							</bpel:copy>
+						</bpel:assign>
+						
+						<bpel:invoke name="fileVerify" partnerLink="fileVerify" operation="verify" portType="FileVerifyService:FileVerifyType" inputVariable="fileVerifyRequest">
+							<bpel:correlations>
+				        		<bpel:correlation set="MessageIDCorrelation" initiate="no"/>
+				      		</bpel:correlations>
+						</bpel:invoke>
+						
+						<bpel:receive name="receiveFileVerify" partnerLink="fileVerify" operation="callback" portType="FileVerifyAsynCallbackService:FileVerifyCallbackType" variable="fileVerifyResponse" createInstance="no">
+							<bpel:correlations>
+				        		<bpel:correlation set="MessageIDCorrelation" initiate="no"/>
+				      		</bpel:correlations>
+						</bpel:receive>
+						<bpel:if name="fileVerifyOK">
+							<bpel:condition>$fileVerifyResponse.FileVerifyCallbackInput/ns:ResponseInfo/ns:Status=0</bpel:condition>
+							<bpel:sequence>
+								<bpel:assign validate="no" name="getMetadataImportRequest">
+									<bpel:copy>
+										<bpel:from>$importAllowResponse.ImportAllowCallbackInput/ns:EntityInfo</bpel:from>
+										<bpel:to>$metadataImportRequest.MetadataImportRequest/ns:EntityInfo</bpel:to>
+									</bpel:copy>
+									<bpel:copy>
+										<bpel:from>$clientRequest.ImportMaterialIntegrationRequest/ns:CommonRequest</bpel:from>
+										<bpel:to>$metadataImportRequest.MetadataImportRequest/ns:CommonRequest</bpel:to>
+									</bpel:copy>
+								</bpel:assign>
+								
+								<bpel:invoke name="metadataImport" partnerLink="metadataImport" operation="Import" inputVariable="metadataImportRequest" outputVariable="metadataImportResponse"/>
+								
+								<bpel:assign validate="no" name="getImportResult">
+									<bpel:copy>
+										<bpel:from>$metadataImportResponse.MetadataImportResponse/ns:Results/ns:Result</bpel:from>
+										<bpel:to>$clientResponse.ImportIntegrationCallbackInput/ns:ResponseInfo/ns:Status</bpel:to>
+									</bpel:copy>
+									<bpel:copy>
+										<bpel:from>$metadataImportResponse.MetadataImportResponse/ns:Results/ns:Comment</bpel:from>
+										<bpel:to>$clientResponse.ImportIntegrationCallbackInput/ns:ResponseInfo/ns:Comment</bpel:to>
+									</bpel:copy>
+								</bpel:assign>
+							</bpel:sequence>
+							<bpel:else>
+								<bpel:assign validate="no" name="getFileVerifyErrorInfo">
+									<bpel:copy>
+										<bpel:from>$fileVerifyResponse.FileVerifyCallbackInput/ns:ResponseInfo</bpel:from>
+										<bpel:to>$clientResponse.ImportIntegrationCallbackInput/ns:ResponseInfo</bpel:to>
+									</bpel:copy>
+								</bpel:assign>
+							</bpel:else>
+						</bpel:if>
+					</bpel:sequence>
+					<bpel:else>
+						<bpel:assign validate="no" name="getFileTransferErrorInfo">
+							<bpel:copy>
+								<bpel:from>$fileTransferResponse.FileTranseferCallBackRequet/ns:ResponseInfo</bpel:from>
+								<bpel:to>$clientResponse.ImportIntegrationCallbackInput/ns:ResponseInfo</bpel:to>
+							</bpel:copy>
+						</bpel:assign>
+					</bpel:else>
+				</bpel:if>
+			</bpel:sequence>
+			<bpel:else>
+				<bpel:assign validate="no" name="getImportAllowErrorInfo">
+					<bpel:copy>
+						<bpel:from>$importAllowResponse.ImportAllowCallbackInput/ns:ResponseInfo</bpel:from>
+						<bpel:to>$clientResponse.ImportIntegrationCallbackInput/ns:ResponseInfo</bpel:to>
+					</bpel:copy>
+				</bpel:assign>
+			</bpel:else>
+		</bpel:if>
+        
+        <bpel:invoke name="sendOutput" partnerLink="client" operation="callback" portType="ImportIntegrationAsynCallbackService:ImportIntegrationCallbackType" inputVariable="clientResponse">
+			<bpel:correlations>
+        		<bpel:correlation set="MessageIDCorrelation" initiate="no"/>
+      		</bpel:correlations>
+        </bpel:invoke>
+    </bpel:sequence>
+</bpel:process>

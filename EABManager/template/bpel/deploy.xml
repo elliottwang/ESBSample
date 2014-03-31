@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03"
+        xmlns:ImportIntegrationService="$ConsumerService_1_ServiceNamespace$" 
+        xmlns:ImportIntegrationAsynCallbackService="$ProviderService_1_UniqueNamespaceByGuid$" 			
+        xmlns:ImportAllowService="$ProviderService_2_UniqueNamespaceByGuid$"  
+        xmlns:ImportAllowAsynCallbackService="$ConsumerService_2_ServiceNamespace$" 
+        xmlns:FileTransferService="$ProviderService_3_UniqueNamespaceByGuid$" 
+        xmlns:FileTransferAsyncCallBackService="$ConsumerService_3_ServiceNamespace$"
+        xmlns:FileVerifyService="$ProviderService_4_UniqueNamespaceByGuid$" 
+        xmlns:FileVerifyAsynCallbackService="$ConsumerService_4_ServiceNamespace$" 			
+        xmlns:MetadataImportService="$ProviderService_5_UniqueNamespaceByGuid$" >
+
+  <process name="ImportIntegrationService:ImportIntegrationService">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="none"/>
+    
+    <provide partnerLink="client">
+      <service name="ImportIntegrationService:$ConsumerService_1_ServiceName$_$UniqueFlowName$_Consumer_1" port="$ConsumerService_1_ServiceEndpoint$"/>
+    </provide>
+    
+    <provide partnerLink="importAllow">
+      <service name="ImportAllowAsynCallbackService:$ConsumerService_2_ServiceName$_$UniqueFlowName$_Consumer_2" port="$ConsumerService_2_ServiceEndpoint$"/>
+    </provide>
+    
+    <provide partnerLink="fileTransfer">
+      <service name="FileTransferAsyncCallBackService:$ConsumerService_3_ServiceName$_$UniqueFlowName$_Consumer_3" port="$ConsumerService_3_ServiceEndpoint$"/>
+    </provide>
+    
+    <provide partnerLink="fileVerify">
+      <service name="FileVerifyAsynCallbackService:$ConsumerService_4_ServiceName$_$UniqueFlowName$_Consumer_4" port="$ConsumerService_4_ServiceEndpoint$"/>
+    </provide>
+    
+    <invoke partnerLink="client">
+      <service name="ImportIntegrationAsynCallbackService:wiretap" port="endpoint"/>
+    </invoke>
+    
+    <invoke partnerLink="importAllow">
+      <service name="ImportAllowService:wiretap" port="endpoint"/>
+    </invoke>
+    
+    <invoke partnerLink="fileTransfer">
+      <service name="FileTransferService:wiretap" port="endpoint"/>
+    </invoke> 
+    
+    <invoke partnerLink="fileVerify">
+      <service name="FileVerifyService:wiretap" port="endpoint"/>
+    </invoke>
+    
+    <invoke partnerLink="metadataImport">
+      <service name="MetadataImportService:wiretap" port="endpoint"/>
+    </invoke>
+    
+  </process>
+</deploy>

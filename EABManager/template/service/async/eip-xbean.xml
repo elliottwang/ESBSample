@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:eip="http://servicemix.apache.org/eip/1.0"
+       xmlns:eab="http://www.founder.com/eab/"
+       xmlns:un="$UniqueNamespaceByGuid$"
+       xmlns:sn="$ServiceNamespace$">
+
+  <eip:wire-tap service="un:wiretap" endpoint="endpoint">
+       <eip:target>
+          <eip:exchange-target service="sn:$ServiceName$Provider$UniqueServiceName$" />
+       </eip:target>
+       <eip:inListener>
+          <eip:exchange-target service="un:pipeline" />
+       </eip:inListener>
+  </eip:wire-tap>
+
+  <eip:pipeline service="un:pipeline" endpoint="endpoint">
+       <eip:transformer>
+          <eip:exchange-target service="un:loggerEnricher" />
+       </eip:transformer>
+       <eip:target>
+          <eip:exchange-target service="eab:LogMessageService" /> 
+       </eip:target>
+  </eip:pipeline>
+
+</beans>

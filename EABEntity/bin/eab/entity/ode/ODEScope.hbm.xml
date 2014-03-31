@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="eab.entity.ode">
+
+	<class name="ODEScope" table="ODE_SCOPE">
+		<id name="id" column="SCOPE_ID" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" column="SCOPE_NAME" type="string"/>
+		<property name="state" column="SCOPE_STATE" type="string"/>
+		<many-to-one name="parent" column="PARENT_SCOPE_ID" class="eab.entity.ode.ODEScope" lazy="false"/>
+		<set name="subScopes" cascade="all" lazy="false" inverse="true">
+			<key column="PARENT_SCOPE_ID"/>
+			<one-to-many class="eab.entity.ode.ODEScope"/>
+		</set>		
+		<set name="datas" cascade="all" lazy="false" inverse="true">
+			<key column="SCOPE_ID"/>
+			<one-to-many class="eab.entity.ode.ODEXmlData"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

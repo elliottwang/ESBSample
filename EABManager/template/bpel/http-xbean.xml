@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:http="http://servicemix.apache.org/http/1.0" 
+       $Repeat Start by ConsumerIndex$
+       xmlns:sn$ConsumerIndex$="$ConsumerService_$ConsumerIndex$_ServiceNamespace$"
+       $Repeat Stop$
+       >
+	
+       $Repeat Start by ConsumerIndex$
+       <http:endpoint
+              service="sn$ConsumerIndex$:$ConsumerService_$ConsumerIndex$_ServiceName$_$UniqueFlowName$_Consumer_$ConsumerIndex$" 
+              endpoint="$ConsumerService_$ConsumerIndex$_ServiceEndpoint$"
+              role="consumer" 
+              locationURI="http://0.0.0.0:807/flows/$UniqueFlowName$/$ConsumerService_$ConsumerIndex$_ServiceName$_$ConsumerIndex$/" 
+              defaultMep="http://www.w3.org/2004/08/wsdl/$ConsumerService_$ConsumerIndex$_Mep$" 
+              defaultOperation="$ConsumerService_$ConsumerIndex$_ServiceNamespace$:$ConsumerService_$ConsumerIndex$_ServiceAction$" 		
+              soap="true"		
+              wsdlResource="classpath:ServiceWrap_ConsumerService_$ConsumerIndex$.wsdl"/>
+       $Repeat Stop$
+		
+</beans>

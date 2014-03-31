@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:http="http://servicemix.apache.org/http/1.0"
+       xmlns:un="$UniqueNamespaceByGuid$"
+       xmlns:sn="$ServiceNamespace$">
+
+  <http:endpoint
+  	service="sn:$ServiceName$Consumer$UniqueServiceName$"
+  	endpoint="$ServiceEndpoint$" 
+  	targetService="un:wiretap"
+  	targetEndpoint="endpoint"
+  	role="consumer"
+  	locationURI="http://0.0.0.0:807/services/$UniqueServiceName$" 
+  	defaultMep="http://www.w3.org/2004/08/wsdl/in-only"
+  	soap="true"
+  	wsdlResource="classpath:ServiceWrap.wsdl"/>
+
+  <http:endpoint
+  	service="sn:$ServiceName$Provider$UniqueServiceName$" 
+  	endpoint="$ServiceEndpoint$" 
+  	role="provider" 
+  	locationURI="$ServiceAddress$"
+  	soap="true"
+  	soapAction="$ServiceSoapAction$"
+  	wsdlResource="classpath:ServiceWrap.wsdl"/>
+
+</beans>

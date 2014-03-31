@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="junit"/>
+	<classpathentry kind="src" path="SA"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/XmlSchema-1.4.5.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/EABManager/lib/XmlSchema-1.4.5-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/wsdl4j-1.6.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/EABManager/lib/wsdl4j-1.6.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/log4j-1.2.15.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/EABManager/lib/log4j-1.2.15-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/dom4j-1.6.1.jar" sourcepath="lib/dom4j-1.6.1-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/EABManager/lib/dom4j-1.6.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/jaxme-api-0.3.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/msv-20030807.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/pull-parser-2.1.10.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/relaxngDatatype-20030807.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/xpp3-1.1.3.3.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/xsdlib-20030807.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EABProxy"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EABUtil"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/axis.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EABEntity"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/slf4j-nop-1.5.8.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/mysql-connector-java-5.1.12-bin.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/javassist-3.9.0.GA.jar"/>
+	<classpathentry kind="lib" path="/EAB/WebContent/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/ESB Install/EAB1.0/EAB1.0/EAB/WebContent/WEB-INF/lib/jtds-1.2.5.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+			 xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			 xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+			 xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" 	
+			 targetNamespace="http://JSTV/PublicService/ImportIntegrationServiceWrap/"
+			 xmlns:tns="http://JSTV/PublicService/ImportIntegrationServiceWrap/"	
+			 xmlns:ns="http://JSTV/PublicService/Parameter/"		 
+			 xmlns:ImportIntegrationService="http://JSTV/PublicService/ImportIntegrationService/"	 
+			 xmlns:ImportIntegrationAsynCallbackService="http://JSTV/PublicService/ImportIntegrationAsynCallbackService/"
+			 xmlns:ImportAllowService="http://JSTV/PublicService/ImportAllowService/"
+			 xmlns:ImportAllowAsynCallbackService="http://JSTV/PublicService/ImportAllowAsynCallbackService/"
+			 xmlns:FileTransferService="http://JSTV/PublicService/FileTransferService/"
+			 xmlns:FileTransferAsyncCallBackService="http://JSTV/PublicService/FileTransferAsyncCallBackService/"			 
+			 xmlns:FileVerifyService="http://JSTV/PublicService/FileVerifyService/"
+			 xmlns:FileVerifyAsynCallbackService="http://JSTV/PublicService/FileVerifyAsynCallbackService/"
+			 xmlns:MetadataImportService="http://JSTV/PublicService/MetadataImportService/">			 
+		
+	<import location="file:/$ConsumerService_1_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/ImportIntegrationService/"/>
+	<import location="file:/$ProviderService_1_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/ImportIntegrationAsynCallbackService/"/>
+	<import location="file:/$ProviderService_2_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/ImportAllowService/"/>
+	<import location="file:/$ConsumerService_2_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/ImportAllowAsynCallbackService/"/>
+	<import location="file:/$ProviderService_3_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/FileTransferService/"/>
+	<import location="file:/$ConsumerService_3_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/FileTransferAsyncCallBackService/"/>
+	<import location="file:/$ProviderService_4_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/FileVerifyService/"/>
+	<import location="file:/$ConsumerService_4_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/FileVerifyAsynCallbackService/"/>
+	<import location="file:/$ProviderService_5_AbsoluteWSDLFilePath$" namespace="http://JSTV/PublicService/MetadataImportService/"/>
+	
+	<plnk:partnerLinkType name="ImportIntegrationLinkType">
+		<plnk:role name="ImportIntegrationRole" portType="ImportIntegrationService:ImportMaterialIntegrationType" />
+		<plnk:role name="ImportIntegrationCallBackRole" portType="ImportIntegrationAsynCallbackService:ImportIntegrationCallbackType"/>
+	</plnk:partnerLinkType>
+	
+	<plnk:partnerLinkType name="ImportAllowLinkType">
+		<plnk:role name="ImportAllowRole" portType="ImportAllowService:ImportAllowType"/>
+		<plnk:role name="ImportAllowCallBackRole" portType="ImportAllowAsynCallbackService:ImportAllowCallbackType"/>
+	</plnk:partnerLinkType>
+	
+	<plnk:partnerLinkType name="FileTransferLinkType">
+		<plnk:role name="FileTransferRole" portType="FileTransferService:FileTransferType"/>
+		<plnk:role name="FileTransferCallBackRole" portType="FileTransferAsyncCallBackService:FileTransferCallBackType"/>
+	</plnk:partnerLinkType>
+	
+	<plnk:partnerLinkType name="FileVerifyLinkType">
+		<plnk:role name="FileVerifyRole" portType="FileVerifyService:FileVerifyType"/>
+		<plnk:role name="FileVerifyCallBackRole" portType="FileVerifyAsynCallbackService:FileVerifyCallbackType"/>
+	</plnk:partnerLinkType>
+	
+	<plnk:partnerLinkType name="MetadataImportLinkType">
+		<plnk:role name="MetadataImportRole" portType="MetadataImportService:MetadataImportType"/>
+	</plnk:partnerLinkType>
+	
+	<vprop:property name="MessageIDProp" type="xs:string"/>
+	<vprop:propertyAlias messageType="ImportIntegrationService:ImportMaterialIntegrationRequestMessage" part="ImportMaterialIntegrationRequest" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+	<vprop:propertyAlias messageType="ImportIntegrationAsynCallbackService:ImportIntegerationCallbackInputMessage" part="ImportIntegrationCallbackInput" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+	<vprop:propertyAlias messageType="ImportAllowService:ImportAllowRequestMessage" part="ImportAllowRequest" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+	<vprop:propertyAlias messageType="ImportAllowAsynCallbackService:ImportAllowCallbackInputMessage" part="ImportAllowCallbackInput" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+	<vprop:propertyAlias messageType="FileTransferService:FileTransferRequestMessage" part="FileTransferRequest" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+	<vprop:propertyAlias messageType="FileTransferAsyncCallBackService:FileTransferCallBackRequestMessage" part="FileTranseferCallBackRequet" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+  	<vprop:propertyAlias messageType="FileVerifyService:FileVerifyRequestMessage" part="FileVerifyRequest" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+	<vprop:propertyAlias messageType="FileVerifyAsynCallbackService:FileVerifyCallbackInputMessage" part="FileVerifyCallbackInput" propertyName="tns:MessageIDProp">
+  		<vprop:query>/ns:MessageID</vprop:query>
+  	</vprop:propertyAlias>
+</definitions>

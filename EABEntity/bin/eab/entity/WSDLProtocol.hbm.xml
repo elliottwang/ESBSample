@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="eab.entity">
+
+	<class name="WSDLProtocol" table="eab_protocol">
+		<id name="type" column="type_name" type="string">
+			<generator class="assigned" />
+		</id>
+		<property name="wsdlFilePath" column="wsdl_filepath" type="string"/>
+	</class>
+
+</hibernate-mapping>

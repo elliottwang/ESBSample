@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="eab.entity">
+
+	<class name="EABFlowEditor" table="eab_flow_editor">
+		<id name="uniqueFlowName" column="flow_name" type="string">
+			<generator class="assigned" />
+		</id>
+		<property name="flowViewFile" column="flowview_file" type="text"/>
+		<property name="createTime" column="create_time" type="timestamp"/>
+		<property name="lastmodifyTime" column="lastmodify_time" type="timestamp"/>
+		<property name="createUser" column="create_user" type="string"/>
+		<property name="modifyUser" column="modify_user" type="string"/>
+		<property name="isDeployed" column="isdeployed" type="integer"/>
+		<property name="deployTime" column="deploytime" type="timestamp"/>
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:http="http://servicemix.apache.org/http/1.0"
+       xmlns:un="$UniqueNamespaceByGuid$"
+       xmlns:sn="$ServiceNamespace$">
+
+  <http:endpoint
+  	service="sn:$ServiceName$Consumer$UniqueServiceName$"
+  	endpoint="$ServiceEndpoint$" 
+  	targetService="un:wiretap"
+  	targetEndpoint="endpoint"
+  	role="consumer"
+  	locationURI="http://0.0.0.0:807/services/$UniqueServiceName$" 
+  	defaultMep="http://www.w3.org/2004/08/wsdl/in-out"
+  	soap="true"
+  	wsdlResource="classpath:ServiceWrap.wsdl"/>
+
+  <http:soap-provider
+  	service="sn:$ServiceName$Provider$UniqueServiceName$" 
+  	endpoint="$ServiceEndpoint$" 
+  	locationURI="$ServiceAddress$"
+  	wsdl="classpath:ServiceWrap.wsdl"
+  	useJbiWrapper="false"
+  	marshaler="#responseMarshaler"/>
+
+  <bean id="responseMarshaler" class="eab.marshaler.SoapMessageMarshaler">
+    <property name="type">
+      <value>$UniqueServiceName$</value>
+    </property> 
+  </bean>
+
+</beans>

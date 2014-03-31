@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" version="1.0">
+  <service-assembly>
+    <identification>
+      <name>serviceflow-$UniqueFlowName$-sa</name>
+      <description></description>
+    </identification>
+    <service-unit>
+      <identification>
+        <name>serviceflow-$UniqueFlowName$-http-su</name>
+        <description></description>
+      </identification>
+      <target>
+        <artifacts-zip>serviceflow-$UniqueFlowName$-http-su.zip</artifacts-zip>
+        <component-name>servicemix-http</component-name>
+      </target>
+    </service-unit>
+    <service-unit>
+      <identification>
+        <name>serviceflow-$UniqueFlowName$-ode-su</name>
+        <description></description>
+      </identification>
+      <target>
+        <artifacts-zip>serviceflow-$UniqueFlowName$-ode-su.zip</artifacts-zip>
+        <component-name>OdeBpelEngine</component-name>
+      </target>
+    </service-unit>
+  </service-assembly>
+</jbi>

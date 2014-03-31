@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="eab.entity.ode">
+
+	<class name="ODEXmlData" table="ODE_XML_DATA">
+		<id name="id" column="XML_DATA_ID" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="value" column="DATA" type="text"/>
+		<property name="key" column="NAME" type="string"/>		
+		<property name="scope" column="SCOPE_ID" type="long"/>
+	</class>
+
+</hibernate-mapping>

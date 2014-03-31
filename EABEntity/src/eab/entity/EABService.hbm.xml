@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="eab.entity">
+
+	<class name="EABService" table="eab_service">
+		<id name="uniqueServiceName" column="service_name" type="string">
+			<generator class="assigned" />
+		</id>
+		<property name="uniqueNamespaceByGuid" column="namespace_guid" type="string"/>		
+		<property name="serviceURL" column="service_url" type="string"/>
+		<property name="wrappedServiceURL" column="wrapped_url" type="string"/>
+		<many-to-one name="protocol" column="service_type" class="eab.entity.WSDLProtocol" lazy="false" not-null="true"/>
+	</class>
+
+</hibernate-mapping>

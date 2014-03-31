@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process maxId="40" state="globalStatus" input="globalRequest" output="globalResponse">
+  <Figure type="Start" x="90" y="25" rx="99" ry="37" standardwidth="20" standardheight="20" drawid="100" width="20" height="20" multiple="1" ID="1" figureName="" r="10">
+	<Attributes>
+	  <Attribute name="id">1</Attribute>
+	  <Attribute name="type">Start</Attribute>
+	  <Attribute name="name"></Attribute>
+	</Attributes>
+  </Figure>
+  <Figure type="End" x="90" y="250" rx="99" ry="261" standardwidth="20" standardheight="20" drawid="101" width="20" height="20" multiple="1" ID="2" figureName="" r="10">
+	<Attributes>
+	  <Attribute name="id">2</Attribute>
+	  <Attribute name="type">End</Attribute>
+	  <Attribute name="name"></Attribute>
+	</Attributes>
+  </Figure>
+</Process>

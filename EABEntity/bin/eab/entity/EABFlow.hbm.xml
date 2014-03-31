@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="eab.entity">
+
+	<class name="EABFlow" table="eab_flow">
+		<id name="uniqueFlowName" column="flow_name" type="string">
+			<generator class="assigned" />
+		</id>
+		<property name="bpelFile" column="bpel_file" type="text"/>
+		<property name="deployFile" column="deploy_file" type="text"/>
+		<property name="flowViewFile" column="flowview_file" type="text"/>
+		<many-to-one name="invokeService" class="eab.entity.EABService" column="invoke_service" lazy="false"/>
+		<many-to-one name="callbackService" class="eab.entity.EABService" column="callback_service" lazy="false"/>
+		<set name="consumeServices" table="eab_flow_consume_map" lazy="false" cascade="save-update">
+			<key column="flow_name"/>
+			<many-to-many class="eab.entity.EABService" column="service_name"/>
+		</set>
+		<set name="provideServices" table="eab_flow_provide_map" lazy="false" cascade="save-update">
+			<key column="flow_name"/>
+			<many-to-many class="eab.entity.EABService" column="service_name"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

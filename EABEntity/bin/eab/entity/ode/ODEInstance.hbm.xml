@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="eab.entity.ode">
+
+	<class name="ODEInstance" table="ODE_PROCESS_INSTANCE">
+		<id name="id" column="ID" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="creatTime" column="DATE_CREATED" type="timestamp"/>		
+		<property name="lastActiveTime" column="LAST_ACTIVE_TIME" type="timestamp"/>		
+		<property name="previousState" column="PREVIOUS_STATE" type="short"/>
+		<property name="state" column="INSTANCE_STATE" type="short"/>
+		<many-to-one name="process" column="PROCESS_ID" class="eab.entity.ode.ODEProcess" lazy="false" not-null="true"/>
+		<many-to-one name="rootScope" column="ROOT_SCOPE_ID" class="eab.entity.ode.ODEScope" lazy="false" not-null="true"/>
+	</class>
+
+</hibernate-mapping>
